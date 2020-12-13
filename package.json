@@ -2,7 +2,7 @@
   "name": "my-social-net-profile",
   "version": "1.0.0",
   "description": "my social net profile",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "nodemon": "nodemon ./server.js"
@@ -21,8 +21,8 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "passport": "^0.4.1",
-    "passport-spotify": "^1.1.0"
+    "node-fetch": "^2.6.1",
+    "query-string": "^6.13.7"
   },
   "devDependencies": {
     "nodemon": "^2.0.6"

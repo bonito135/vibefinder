@@ -1,6 +1,5 @@
 //Imports
 const express = require("express");
-passportSetup = require("./oauth/setup/passport-setup");
 const cors = require("cors");
 
 //Environment
