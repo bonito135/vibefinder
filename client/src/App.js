@@ -1,19 +1,23 @@
-import React, { useEffect } from "react";
+import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
 function App() {
-  useEffect(() => {
-    fetch("http://localhost:5000/auth/spotify/actionRequest")
-      .then((response) => console.log(response.json()))
-      .then((data) => console.log(data));
-  }, []);
+  const getRecentlyPlayed = () => {
+    fetch("http://localhost:5000/spotify/functions/recentlyPlayed")
+      .then((response) => response.text())
+      .then((json) => console.log(json));
+  };
 
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <a href="http://localhost:5000/auth/spotify/login">link</a>
+        <a href="http://localhost:5000/spotify/auth/login">login</a>
+
+        <div>
+          <button onClick={getRecentlyPlayed}>Recently played</button>
+        </div>
       </header>
     </div>
   );

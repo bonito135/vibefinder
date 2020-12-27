@@ -1,8 +1,11 @@
-//Imports
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//Setup imports
 const express = require("express");
 const cors = require("cors");
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-//Environment
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//Server environment
 const server = express();
 const port = process.env.PORT || 5000;
 server.use(
@@ -11,14 +14,21 @@ server.use(
     credentials: true,
   })
 );
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-//Routes
-const spotifyAuthRoutes = require("./server-routes/auth-routes/spotify-auth-routes");
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//Importing routes
+const spotifyRouter = require("./server-routes/spotify-routes/spotify-routes-router");
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 //Routing
-server.use("/auth", spotifyAuthRoutes);
+server.use("/spotify", spotifyRouter);
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 //Listening to port
 server.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
