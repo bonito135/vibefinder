@@ -4,5 +4,12 @@ module.exports = {
     clientSecret: "7e9b6c69718f4b7293fe31e6f6ae08b4",
     redirectURI: "http://localhost:5000/auth/spotify/redirect",
     scope: "user-read-private user-read-email",
+
+    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    //Spotify auth tokens info
+    spotifyAccessToken: "",
+    spotifyTokenType: "",
+    spotifyExpiresIn: 0,
+    spotifyRefreshToken: "",
   },
 };

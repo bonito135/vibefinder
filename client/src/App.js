@@ -3,7 +3,11 @@ import logo from "./logo.svg";
 import "./App.css";
 
 function App() {
-  useEffect(() => {}, []);
+  useEffect(() => {
+    fetch("http://localhost:5000/auth/spotify/actionRequest")
+      .then((response) => console.log(response.json()))
+      .then((data) => console.log(data));
+  }, []);
 
   return (
     <div className="App">
