@@ -3,15 +3,16 @@
 const router = require("express").Router();
 const fetch = require("node-fetch");
 const query_string = require("query-string");
-const keys = require("../../oauth/setup/keys");
+const pernamentKeys = require("../../oauth/setup/pernament-keys");
+const temporaryKeys = require("../../oauth/setup/temporary-keys");
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 //Spotify keys
-const client_id = keys.spotify.clientID;
-const client_secret = keys.spotify.clientSecret;
-const redirect_uri = keys.spotify.redirectURI;
-const scope = keys.spotify.scope;
+const client_id = pernamentKeys.spotify.clientID;
+const client_secret = pernamentKeys.spotify.clientSecret;
+const redirect_uri = pernamentKeys.spotify.redirectURI;
+const scope = pernamentKeys.spotify.scope;
 const response_type = "code";
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -43,11 +44,11 @@ router.get("/redirect", (req, res) => {
     grant_type: "authorization_code",
   };
 
-  const bodyWithURLParams = query_string.stringify(URLParams);
+  const stringifiedURLParams = query_string.stringify(URLParams);
 
   fetch("https://accounts.spotify.com/api/token", {
     method: "POST",
-    body: bodyWithURLParams,
+    body: stringifiedURLParams,
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
       Authorization:
@@ -57,25 +58,30 @@ router.get("/redirect", (req, res) => {
   })
     .then((response) => response.json())
     .then((dataInJson) => {
-      console.log(dataInJson);
+      //console.log(dataInJson);
 
-      keys.spotifyAccessToken = dataInJson.access_token;
-      console.log(keys.spotifyAccessToken);
+      temporaryKeys.spotify.spotifyAccessToken.replaceValue(
+        dataInJson.access_token
+      );
 
-      keys.spotifyTokenType = dataInJson.token_type;
-      console.log(keys.spotifyTokenType);
+      temporaryKeys.spotify.spotifyTokenType.replaceValue(
+        dataInJson.token_type
+      );
 
-      keys.spotifyExpiresIn = dataInJson.expires_in;
-      console.log(keys.spotifyExpiresIn);
+      temporaryKeys.spotify.spotifyExpiresIn.replaceValue(
+        dataInJson.expires_in
+      );
 
-      keys.spotifyRefreshToken = dataInJson.refresh_token;
-      console.log(keys.spotifyRefreshToken);
+      temporaryKeys.spotify.spotifyRefreshToken.replaceValue(
+        dataInJson.refresh_token
+      );
 
-      keys.spotifyScope = dataInJson.scope;
-      console.log(keys.spotifyScope);
+      //temporaryKeys.spotify.spotifyScope.replaceValue(dataInJson.scope);
     });
 
   res.redirect("http://localhost:3000");
+  console.log("\x1b[36m%s\x1b[0m", "Spotify login redirect successful");
+  res.end();
 });
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
