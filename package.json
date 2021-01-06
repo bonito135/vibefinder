@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "my social net profile",
   "main": "server.js",
+  "engines": {
+    "node": "12.18.4"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "nodemon": "nodemon ./server.js",

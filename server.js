@@ -16,6 +16,8 @@ server.use(
 );
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+server.use(express.static("client/build"));
+
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 //Importing routes
 const spotifyRouter = require("./server-routes/spotify-routes/spotify-routes-router");
