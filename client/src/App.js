@@ -3,14 +3,11 @@ import logo from "./Spotify-Logo.svg";
 import "./App.css";
 
 function App() {
-  const redirectTo =
-    process.env.REDIRECT_TO ||
-    "https://currently-playing-spotify-song.herokuapp.com";
   const [currentSong, setCurrentSong] = useState("");
   const [currentArtist, setCurrentArtist] = useState("");
 
   const getCurrentlyPlaying = async () => {
-    const response = await fetch(`${redirectTo}/spotify/functions/playing`);
+    const response = await fetch(`/spotify/functions/playing`);
 
     console.log(response);
     if (response.status === 401) {
@@ -29,9 +26,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <a href="https://currently-playing-spotify-song.herokuapp.com/spotify/auth/login">
-          login
-        </a>
+        <a href="/spotify/auth/login">login</a>
 
         <div>
           <button onClick={getCurrentlyPlaying}>Currently playing</button>

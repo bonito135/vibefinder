@@ -78,9 +78,9 @@ router.get("/redirect", (req, res) => {
 
       //temporaryKeys.spotify.spotifyScope.replaceValue(dataInJson.scope);
     });
-  const redirectTo = process.env.REDIRECT_TO || "localhost:3000";
+  const currentURL = process.env.CURRENT_URL || "localhost:3000";
 
-  res.redirect(redirectTo);
+  res.redirect(currentURL);
   console.log("\x1b[36m%s\x1b[0m", "Spotify login redirect successful");
   res.end();
 });
