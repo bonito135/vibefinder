@@ -3,7 +3,9 @@ import logo from "./Spotify-Logo.svg";
 import "./App.css";
 
 function App() {
-  const redirectTo = process.env.REDIRECT_TO || "http://localhost:5000";
+  const redirectTo =
+    process.env.REDIRECT_TO ||
+    "https://currently-playing-spotify-song.herokuapp.com/spotify/auth/login";
   const [currentSong, setCurrentSong] = useState("");
   const [currentArtist, setCurrentArtist] = useState("");
 
