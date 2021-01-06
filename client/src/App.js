@@ -5,7 +5,7 @@ import "./App.css";
 function App() {
   const redirectTo =
     process.env.REDIRECT_TO ||
-    "https://currently-playing-spotify-song.herokuapp.com/spotify/auth/login";
+    "https://currently-playing-spotify-song.herokuapp.com";
   const [currentSong, setCurrentSong] = useState("");
   const [currentArtist, setCurrentArtist] = useState("");
 
