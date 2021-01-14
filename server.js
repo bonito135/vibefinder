@@ -1,6 +1,7 @@
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 //Setup imports
 const express = require("express");
+const bodyParser = require("body-parser");
 const cors = require("cors");
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -8,15 +9,22 @@ const cors = require("cors");
 //Server environment
 const server = express();
 const port = process.env.PORT || 5000;
-server.use(
-  cors({
-    origin: "http://localhost:3000",
-    credentials: true,
-  })
-);
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+server.use(bodyParser.json());
 
-server.use(express.static("client/build"));
+server.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "*");
+
+  if (req.method === "OPTIONS") {
+    res.header("Access-Control-Allow-Methhods", "*");
+  }
+  next();
+});
+
+if (process.env.NODE_ENV === "production") {
+  server.use(express.static("client/build"));
+}
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 //Importing routes

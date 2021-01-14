@@ -1,6 +1,7 @@
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 //Setup imports
 const router = require("express").Router();
+const MongoClient = require("mongodb").MongoClient;
 const fetch = require("node-fetch");
 const temporaryKeys = require("../../oauth/setup/temporary-keys");
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -11,47 +12,130 @@ const spotifyAccessToken = temporaryKeys.spotify.spotifyAccessToken;
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-// spotify/functions/recentlyPlayed
-router.get("/playing", (req, res) => {
+// spotify/functions/getCurrentlyPlayingSong
+router.get("/getCurrentlyPlayingSong", async (req, res) => {
   if (spotifyAccessToken.value !== "") {
     temporaryKeys.spotify.refreshAccessToken();
   }
 
-  let responseStatusNumber = 0;
-
-  fetch("https://api.spotify.com/v1/me/player", {
+  const response = await fetch("https://api.spotify.com/v1/me/player", {
     method: "GET",
     headers: {
       Accept: "application/json",
       Authorization: "Bearer " + spotifyAccessToken.value,
     },
-  })
-    .then((response) => {
-      responseStatusNumber = response.status;
-      console.log(responseStatusNumber);
+  });
 
-      if (responseStatusNumber === 200) {
-        return response.json();
-      } else if (responseStatusNumber === 204 || 401) {
-        return response;
-      }
-    })
-    .then((dataInJson) => {
-      console.log(dataInJson);
-      if (responseStatusNumber === 401) {
-        console.log("\x1b[41m%s\x1b[0m", dataInJson);
-        res.status(401);
-        res.end();
-      } else if (responseStatusNumber === 204) {
-        console.log("\x1b[41m%s\x1b[0m", dataInJson);
-        res.status(204);
-        res.end();
-      } else if (responseStatusNumber === 200) {
-        console.log("\x1b[36m%s\x1b[0m", dataInJson);
-        res.status(200).send(dataInJson);
-        res.end();
-      }
-    });
+  if (response.status === 200) {
+    const responseInJson = await response.json();
+
+    //console.log("\x1b[36m%s\x1b[0m", responseInJson.item);
+
+    const songInfo = responseInJson.item;
+
+    if (responseInJson.currently_playing_type === "ad") {
+      res.status(204);
+      res.end();
+    } else {
+      res.status(200).send(songInfo);
+      res.end();
+    }
+  } else if (response.status === 204) {
+    res.status(204);
+    res.end();
+  } else if (response.status === 401) {
+    res.status(401);
+    res.end();
+  }
+});
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+// spotify/functions/getCurrentListener
+router.get("/getCurrentListener", async (req, res) => {
+  const response = await fetch("https://api.spotify.com/v1/me", {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      Authorization: "Bearer " + spotifyAccessToken.value,
+    },
+  });
+
+  const {
+    display_name,
+    country,
+    images,
+    external_urls,
+  } = await response.json();
+
+  if (response.status === 200) {
+    res.status(200).send({ display_name, country, images, external_urls });
+    res.end();
+  } else if (response.status === 204) {
+    res.status(204);
+    res.end();
+  } else if (response.status === 401) {
+    res.status(401);
+    res.end();
+  }
+});
+
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+// spotify/functions/saveSongAndListenerToDatabase
+router.post("/saveSongAndListenerToDatabase", async (req, res) => {
+  const requestBody = await req.body;
+
+  //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  //Database
+  //Saving song and listener info to database
+  const uri =
+    "mongodb+srv://bonito:.Kuba135.@cluster0.t72hm.mongodb.net/current-song?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+
+  client.connect(async (err) => {
+    const songDatabase = client.db("current-song");
+    const songCollection = await songDatabase
+      .collection("songs")
+      .insertOne(requestBody);
+
+    client.close();
+  });
+  //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+  res.status(200).send(requestBody);
+  res.end();
+});
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+// spotify/functions/getInfoOfPreviousSongsAndListeners
+router.get("/getInfoOfPreviousSongsAndListeners", async (req, res) => {
+  //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  //Database
+  //Getting song and listener info from database
+  const uri =
+    "mongodb+srv://bonito:.Kuba135.@cluster0.t72hm.mongodb.net/current-song?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+
+  client.connect(async (err) => {
+    const songDatabase = client.db("current-song");
+    const songCollection = await songDatabase
+      .collection("songs")
+      .find({})
+      .toArray();
+
+    res.status(200).send(songCollection);
+    res.end();
+
+    client.close();
+  });
+  //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 });
 
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

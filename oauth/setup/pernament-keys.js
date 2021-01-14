@@ -6,6 +6,6 @@ module.exports = {
     clientSecret: "7e9b6c69718f4b7293fe31e6f6ae08b4",
     redirectURI: `${currentURL}/spotify/auth/redirect`,
     scope:
-      "streaming user-read-private user-read-email user-read-playback-state",
+      "streaming user-read-private user-read-email user-read-playback-state user-modify-playback-state",
   },
 };
