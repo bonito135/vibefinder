@@ -17,6 +17,8 @@ export default function AllSongsListingContent() {
     setPreviousSongsAndListenersInfo,
   ] = useState([]);
 
+  const { refresh } = useContext(RefreshContext);
+
   useEffect(() => {
     let isMounted = true;
 
@@ -39,7 +41,7 @@ export default function AllSongsListingContent() {
       isMounted = false;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [RefreshContext]);
+  }, [refresh]);
 
   useEffect(() => {
     let isMounted = true;
