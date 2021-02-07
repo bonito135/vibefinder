@@ -4,6 +4,9 @@ import React, { useEffect, useState } from "react";
 import LoginScreen from "./Components/LoginScreen/LoginScreen";
 import Main from "./Components/Main/Main";
 
+//Functions
+import getCurrentListener from "./Functions/getCurrentListener";
+
 //Context
 import LoginContext from "./Context/LoginContext";
 
@@ -13,7 +16,7 @@ import "./App.css";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 
-  /* useEffect(() => {
+  useEffect(() => {
     let checkLogin = true;
 
     if (checkLogin) {
@@ -33,7 +36,7 @@ function App() {
     return () => {
       checkLogin = false;
     };
-  }, []); */
+  }, []);
 
   return (
     <div className="App">
