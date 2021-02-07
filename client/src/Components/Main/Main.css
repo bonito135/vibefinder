@@ -1,0 +1,29 @@
+.main {
+  display: -ms-grid;
+  display: grid;
+  border: solid white 10px;
+  border-radius: 30px;
+}
+
+@media only screen and (min-width: 1000px) {
+  .main {
+    width: 95%;
+    height: 90%;
+    -ms-grid-rows: 80px 65vh auto;
+        grid-template-rows: 80px 65vh auto;
+    -ms-grid-columns: 45% auto 45%;
+        grid-template-columns: 45% auto 45%;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .main {
+    width: 95%;
+    height: 95%;
+    -ms-grid-rows: 80px auto 8vh;
+        grid-template-rows: 80px auto 8vh;
+    -ms-grid-columns: 100%;
+        grid-template-columns: 100%;
+  }
+}
+/*# sourceMappingURL=Main.css.map */

@@ -1,0 +1,24 @@
+.mainText {
+  width: 100%;
+  color: white;
+  font-weight: normal;
+}
+
+@media only screen and (min-width: 1000px) {
+  .mainText {
+    text-align: start;
+    font-size: 70px;
+    height: 100%;
+    padding: 120px 0 0 50px;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .mainText {
+    text-align: center;
+    font-size: 50px;
+    height: 30%;
+    padding-top: 40px;
+  }
+}
+/*# sourceMappingURL=MainText.css.map */

@@ -1,0 +1,22 @@
+.audioPlayer {
+  display: grid;
+  width: 100%;
+  height: 100%;
+
+  justify-items: center;
+  align-items: center;
+
+  img {
+    width: 30px;
+    height: auto;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  p {
+    color: whitesmoke;
+    font-size: 15px;
+  }
+}

@@ -1,0 +1,103 @@
+.lastSongsField {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-end;
+  justify-content: center;
+
+  .lastSongsText {
+    width: 350px;
+    color: white;
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .lastSongsTileField {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .lastSongsTile {
+    background-color: rgba(0, 0, 0, 0.3);
+    display: grid;
+    grid-template-columns: 50px auto 50px;
+    place-items: center;
+
+    border-radius: 20px;
+
+    backdrop-filter: blur(20px);
+
+    @media only screen and (min-width: 1000px) {
+      width: 350px;
+    }
+
+    @media only screen and (max-width: 1000px) {
+      width: 80vw;
+    }
+
+    &:hover {
+      animation: intensifyBlackness 1s forwards;
+    }
+
+    p {
+      color: white;
+      font-size: 12px;
+    }
+
+    .userImg {
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+    }
+
+    img {
+      width: 22px;
+      height: 22px;
+
+      &:nth-child(2) {
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  @media only screen and (min-width: 1000px) {
+    .lastSongsTileField {
+      padding-right: 50px;
+      align-items: flex-end;
+      justify-content: flex-start;
+    }
+
+    .lastSongsText {
+      padding-top: 100px;
+    }
+
+    .lastSongsTile {
+      height: 70px;
+      margin-top: 2vh;
+    }
+  }
+
+  @media only screen and (max-width: 1000px) {
+    .lastSongsTileField {
+      padding: 0;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lastSongsText {
+      width: 100%;
+      padding-top: 10px;
+    }
+
+    .lastSongsTile {
+      height: 60px;
+      margin-top: 1vh;
+    }
+  }
+}

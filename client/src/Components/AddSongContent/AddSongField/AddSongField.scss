@@ -1,0 +1,58 @@
+.addSongField {
+  display: grid;
+  place-self: center;
+  width: 100%;
+  height: 100%;
+  grid-template-rows: 45% 10% 10% 10% auto;
+  grid-template-columns: 100%;
+
+  .noSongText {
+    grid-row: 2/3;
+    place-self: center;
+    font-family: montserrat;
+    color: white;
+    font-size: 20px;
+  }
+
+  .albumPic {
+    place-self: center;
+    grid-row: 1/2;
+    width: auto;
+    height: 90%;
+    border-radius: 10%;
+  }
+
+  .songName {
+    grid-row: 2/3;
+    font-size: 20px;
+    justify-self: center;
+    align-self: end;
+    text-align: center;
+    height: auto;
+    width: 90%;
+    color: white;
+  }
+
+  .albumName {
+    grid-row: 3/4;
+    color: whitesmoke;
+    justify-self: center;
+    align-self: center;
+    text-align: center;
+    font-weight: 500;
+  }
+
+  .addSongButton {
+    place-self: center;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    width: 100px;
+    height: 50px;
+    background: transparent;
+    background-color: white;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+  }
+}

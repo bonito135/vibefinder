@@ -1,0 +1,28 @@
+.arrowField {
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.arrowField img:first-child {
+  width: 50px;
+  padding-left: 20px;
+}
+
+.arrowField img:nth-child(2) {
+  width: 45px;
+  padding-right: 20px;
+}
+
+.arrowField img:hover {
+  cursor: pointer;
+}
+/*# sourceMappingURL=ArrowField.css.map */

@@ -1,0 +1,112 @@
+.header {
+  height: 100%;
+  width: 100%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  background-color: rgba(0, 0, 0, 0.301);
+  -webkit-backdrop-filter: blur(20px);
+          backdrop-filter: blur(20px);
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 1;
+  grid-row: 1/2;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 3;
+  grid-column: 1/4;
+  border-radius: 20px 20px 0 0;
+}
+
+.header:hover {
+  -webkit-animation: intensifyBlackness 1s forwards;
+          animation: intensifyBlackness 1s forwards;
+}
+
+.header svg {
+  width: 50px;
+  height: 50px;
+}
+
+.header svg:hover {
+  cursor: pointer;
+}
+
+.header .listenerInfo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  padding-left: 50px;
+  height: 100%;
+  width: 200px;
+}
+
+.header .listenerInfo img {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+
+.header .listenerInfo p {
+  color: white;
+  font-size: 13px;
+  padding-left: 10px;
+}
+
+.header .icons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+  padding-right: 50px;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+@media only screen and (min-width: 1000px) {
+  .header {
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+  .header .icons {
+    width: 300px;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+  }
+  .header .icons svg:first-child {
+    padding-right: 30px;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .header {
+    -webkit-box-pack: space-evenly;
+        -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
+  }
+  .header .icons {
+    width: 30vw;
+    padding-right: 0px;
+  }
+  .header svg {
+    padding: 0;
+  }
+}
+/*# sourceMappingURL=Header.css.map */

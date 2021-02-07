@@ -1,0 +1,62 @@
+.footer {
+  -ms-grid-row: 3;
+  -ms-grid-row-span: 1;
+  grid-row: 3/4;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 1;
+  grid-column: 1/2;
+  padding: 0 0 15px 50px;
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.footer .dots {
+  white-space: nowrap;
+  padding: 0;
+  width: 50px;
+  height: 50px;
+}
+
+.footer .lineAndTextContainer .line {
+  width: 35px;
+}
+
+.footer .lineAndTextContainer p {
+  height: 15px;
+  color: white;
+  font-size: 10px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+@media only screen and (min-width: 1000px) {
+  .footer {
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: end;
+        -ms-flex-align: end;
+            align-items: flex-end;
+  }
+  .footer .lineAndTextContainer {
+    padding-left: 15px;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .footer {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .footer .lineAndTextContainer {
+    padding: 10px 0 0 10px;
+  }
+}
+/*# sourceMappingURL=Footer.css.map */

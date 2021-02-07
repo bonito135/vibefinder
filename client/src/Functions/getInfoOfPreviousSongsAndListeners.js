@@ -1,16 +1,26 @@
-import fetch from "node-fetch";
-
-const getInfoOfPreviousSongsAndListeners = async () => {
+const getInfoOfPreviousSongsAndListeners = async (limit) => {
   let response = "";
 
-  if (process.env.NODE_ENV === "development") {
-    response = await fetch(
-      `http://localhost:5000/spotify/functions/getInfoOfPreviousSongsAndListeners`
-    );
+  if (limit) {
+    if (process.env.NODE_ENV === "development") {
+      response = await fetch(
+        `http://localhost:5000/spotify/functions/getInfoOfPreviousSongsAndListeners?limit=${limit}`
+      );
+    } else {
+      response = await fetch(
+        `/spotify/functions/getInfoOfPreviousSongsAndListeners?limit=${limit}`
+      );
+    }
   } else {
-    response = await fetch(
-      `/spotify/functions/getInfoOfPreviousSongsAndListeners`
-    );
+    if (process.env.NODE_ENV === "development") {
+      response = await fetch(
+        `http://localhost:5000/spotify/functions/getInfoOfPreviousSongsAndListeners`
+      );
+    } else {
+      response = await fetch(
+        `/spotify/functions/getInfoOfPreviousSongsAndListeners`
+      );
+    }
   }
 
   if (response.status === 200) {
@@ -21,8 +31,8 @@ const getInfoOfPreviousSongsAndListeners = async () => {
       responseStatus: 200,
       responseInJSON,
     };
-  } else {
-    console.log(response);
+  } else if (response.status === 204) {
+    return { responseStatus: 204 };
   }
 };
 

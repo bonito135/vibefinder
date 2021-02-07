@@ -1,0 +1,20 @@
+.main {
+  display: grid;
+
+  @media only screen and (min-width: 1000px) {
+    width: 95%;
+    height: 90%;
+    grid-template-rows: 80px 65vh auto;
+    grid-template-columns: 45% auto 45%;
+  }
+
+  @media only screen and (max-width: 1000px) {
+    width: 95%;
+    height: 95%;
+    grid-template-rows: 80px auto 8vh;
+    grid-template-columns: 100%;
+  }
+
+  border: solid white 10px;
+  border-radius: 30px;
+}

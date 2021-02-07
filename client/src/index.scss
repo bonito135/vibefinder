@@ -3,12 +3,6 @@
   src: url("./Montserrat-Regular.ttf");
 }
 
-@-webkit-keyframes intensifyBlackness {
-  to {
-    background-color: rgba(0, 0, 0, 0.4);
-  }
-}
-
 @keyframes intensifyBlackness {
   to {
     background-color: rgba(0, 0, 0, 0.4);
@@ -16,15 +10,13 @@
 }
 
 * {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   margin: 0;
   font-family: Montserrat;
-}
 
-* svg {
-  -webkit-box-sizing: content-box;
-          box-sizing: content-box;
+  svg {
+    box-sizing: content-box;
+  }
 }
 
 html,
@@ -33,17 +25,13 @@ body {
   height: 100vh;
 }
 
-@media screen and (min-width: 1000px) {
-  body {
+body {
+  @media screen and (min-width: 1000px) {
     background-image: url("./background.svg");
     background-size: cover;
   }
-}
-
-@media screen and (max-width: 1000px) {
-  body {
+  @media screen and (max-width: 1000px) {
     background-image: url("./background-vertical.jpg");
     background-size: cover;
   }
 }
-/*# sourceMappingURL=index.css.map */

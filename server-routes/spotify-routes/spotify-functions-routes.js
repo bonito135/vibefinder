@@ -3,6 +3,7 @@
 const router = require("express").Router();
 const MongoClient = require("mongodb").MongoClient;
 const fetch = require("node-fetch");
+const query_string = require("query-string");
 const temporaryKeys = require("../../oauth/setup/temporary-keys");
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -97,9 +98,7 @@ router.post("/saveSongAndListenerToDatabase", async (req, res) => {
 
   client.connect(async (err) => {
     const songDatabase = client.db("current-song");
-    const songCollection = await songDatabase
-      .collection("songs")
-      .insertOne(requestBody);
+    await songDatabase.collection("allSongs").insertOne(requestBody);
 
     client.close();
   });
@@ -116,6 +115,7 @@ router.get("/getInfoOfPreviousSongsAndListeners", async (req, res) => {
   //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   //Database
   //Getting song and listener info from database
+
   const uri =
     "mongodb+srv://bonito:.Kuba135.@cluster0.t72hm.mongodb.net/current-song?retryWrites=true&w=majority";
   const client = new MongoClient(uri, {
@@ -123,18 +123,56 @@ router.get("/getInfoOfPreviousSongsAndListeners", async (req, res) => {
     useUnifiedTopology: true,
   });
 
-  client.connect(async (err) => {
-    const songDatabase = client.db("current-song");
-    const songCollection = await songDatabase
-      .collection("songs")
-      .find({})
-      .toArray();
+  const limitOfFetchedSongs = parseInt(req.query.limit);
 
-    res.status(200).send(songCollection);
-    res.end();
+  if (req.query.limit) {
+    try {
+      client.connect(async (err) => {
+        const songDatabase = client.db("current-song");
+        const songCollection = await songDatabase
+          .collection("allSongs")
+          .find({})
+          .limit(limitOfFetchedSongs)
+          .toArray();
 
-    client.close();
-  });
+        if (err) {
+          console.error(err);
+          res.status(204);
+          res.end();
+        } else {
+          res.status(200).send(songCollection);
+          res.end();
+        }
+
+        client.close();
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  } else {
+    try {
+      client.connect(async (err) => {
+        const songDatabase = client.db("current-song");
+        const songCollection = await songDatabase
+          .collection("allSongs")
+          .find({})
+          .toArray();
+
+        if (err) {
+          console.error(err);
+          res.status(204);
+          res.end();
+        } else {
+          res.status(200).send(songCollection);
+          res.end();
+        }
+
+        client.close();
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }
   //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 });
 
