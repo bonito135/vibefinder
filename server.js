@@ -2,7 +2,6 @@
 //Setup imports
 const express = require("express");
 const bodyParser = require("body-parser");
-const cors = require("cors");
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -21,9 +20,8 @@ server.use(function (req, res, next) {
   next();
 });
 
-if (process.env.NODE_ENV === "production") {
-  server.use(express.static("client/build"));
-}
+server.use(express.static("client/build"));
+
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

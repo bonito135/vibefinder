@@ -1,4 +1,10 @@
-const currentURL = process.env.CURRENT_URL || "http://localhost:5000";
+let currentURL;
+
+if (process.env.CURRENT_URL) {
+  currentURL = process.env.CURRENT_URL;
+} else {
+  currentURL = "http://localhost:5000";
+}
 
 module.exports = {
   spotify: {
