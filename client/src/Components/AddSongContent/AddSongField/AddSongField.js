@@ -93,7 +93,7 @@ export default function AddSongField() {
           ></img>
           <h1 className="songName">{songInfo.name}</h1>
           <h4 className="albumName">{songInfo.album.name}</h4>
-          <AudioPlayer component="addSong" />
+          <AudioPlayer />
           <button onClick={saveSong} className="addSongButton">
             Submit
           </button>

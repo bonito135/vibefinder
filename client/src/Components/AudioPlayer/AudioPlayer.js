@@ -6,6 +6,7 @@ import getCurrentlyPlayingSong from "../../Functions/getCurrentlyPlayingSong";
 
 //Context
 import RefreshContext from "../../Context/RefreshContext";
+import MainContentContext from "../../Context/MainContentContext";
 
 //Imgs
 import playButton from "./playButton.png";
@@ -14,39 +15,39 @@ import pauseButton from "./pauseButton.png";
 export default function AudioPlayer(props) {
   const [musicIsPlaying, setMusicIsPlaying] = useState(false);
   const [isPreviewURL, setIsPreviewURL] = useState(false);
+
+  const { mainContent } = useContext(MainContentContext);
   const { refresh } = useContext(RefreshContext);
   const audioRef = useRef(null);
 
   const playSong = async () => {
-    if (!musicIsPlaying) {
-      await audioRef.current.play();
-      setMusicIsPlaying(true);
-    }
+    await audioRef.current.play();
+
+    setMusicIsPlaying(true);
   };
 
-  const pauseSong = async () => {
-    if (musicIsPlaying) {
-      await audioRef.current.pause();
-      setMusicIsPlaying(false);
-    }
+  const pauseSong = () => {
+    audioRef.current.pause();
+
+    setMusicIsPlaying(false);
   };
 
   const getSong = async () => {
-    if (props.component === "addSong") {
+    if (mainContent === "AddSongContent") {
       const response = await getCurrentlyPlayingSong();
       console.log(response);
 
       if (response.responseStatus === 200 && response.preview_url) {
-        const audioTag = new Audio(await response.preview_url);
-        audioRef.current = audioTag;
+        audioRef.current = new Audio(await response.preview_url);
+
         setIsPreviewURL(true);
       } else {
         setIsPreviewURL(false);
       }
-    } else if (props.component !== "addSong") {
+    } else if (mainContent !== "AddSongContent") {
       if (props.preview_url) {
-        const audioTag = new Audio(await props.preview_url);
-        audioRef.current = audioTag;
+        audioRef.current = new Audio(await props.preview_url);
+
         setIsPreviewURL(true);
       } else {
         setIsPreviewURL(false);
@@ -65,6 +66,7 @@ export default function AudioPlayer(props) {
 
     return () => {
       pauseSong();
+      console.log("Paused");
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
