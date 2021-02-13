@@ -39,7 +39,7 @@ export default function AudioPlayer(props) {
 
       if (response.responseStatus === 200 && response.preview_url) {
         audioRef.current = new Audio(await response.preview_url);
-
+        audioRef.current.volume = 0.2;
         setIsPreviewURL(true);
       } else {
         setIsPreviewURL(false);
@@ -47,7 +47,7 @@ export default function AudioPlayer(props) {
     } else if (mainContent !== "AddSongContent") {
       if (props.preview_url) {
         audioRef.current = new Audio(await props.preview_url);
-
+        audioRef.current.volume = 0.2;
         setIsPreviewURL(true);
       } else {
         setIsPreviewURL(false);

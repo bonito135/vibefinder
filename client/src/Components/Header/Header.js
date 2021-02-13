@@ -11,7 +11,7 @@ import LoginContext from "../../Context/LoginContext";
 import MainContentContext from "../../Context/MainContentContext";
 
 const Header = () => {
-  const { setIsLoggedIn } = useContext(LoginContext);
+  const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
   const { setMainContent } = useContext(MainContentContext);
 
   const [currentListenerInfo, setCurrentListenerInfo] = useState({});
@@ -33,8 +33,6 @@ const Header = () => {
 
         if (currentUser.responseStatus === 200) {
           setCurrentListenerInfo(currentUser);
-        } else if (currentUser.responseStatus === 401) {
-          setIsLoggedIn(false);
         }
       };
       getUser();
@@ -45,7 +43,7 @@ const Header = () => {
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isLoggedIn]);
 
   return (
     <div className="header">
