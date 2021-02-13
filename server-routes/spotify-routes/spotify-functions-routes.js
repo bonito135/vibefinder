@@ -133,6 +133,7 @@ router.get("/getInfoOfPreviousSongsAndListeners", async (req, res) => {
           .collection("allSongs")
           .find({})
           .limit(limitOfFetchedSongs)
+          .sort({ sort_by_date: -1 })
           .toArray();
 
         if (err) {
@@ -156,6 +157,7 @@ router.get("/getInfoOfPreviousSongsAndListeners", async (req, res) => {
         const songCollection = await songDatabase
           .collection("allSongs")
           .find({})
+          .sort({ sort_by_date: -1 })
           .toArray();
 
         if (err) {

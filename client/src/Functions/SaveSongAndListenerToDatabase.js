@@ -5,7 +5,8 @@ const saveSongAndListenerToDatabase = async (
   preview_url,
   nameOfListener,
   countryOfListener,
-  imageURLOfListener
+  imageURLOfListener,
+  sort_by_date
 ) => {
   let response = "";
 
@@ -17,6 +18,7 @@ const saveSongAndListenerToDatabase = async (
     nameOfListener,
     countryOfListener,
     imageURLOfListener,
+    sort_by_date,
   };
 
   const bodyInJSON = JSON.stringify(params);

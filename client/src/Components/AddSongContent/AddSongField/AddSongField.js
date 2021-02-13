@@ -38,6 +38,8 @@ export default function AddSongField() {
     const currentListener = await getCurrentListener();
     console.log(currentListener);
 
+    const sort_by_date = new Date().getTime();
+
     const saveSongresponse = await saveSongAndListenerToDatabase(
       songInfo.name,
       songInfo.artists,
@@ -45,7 +47,8 @@ export default function AddSongField() {
       songInfo.preview_url,
       currentListener.display_name,
       currentListener.country,
-      currentListener.images
+      currentListener.images,
+      sort_by_date
     );
     console.log(saveSongresponse);
   };
