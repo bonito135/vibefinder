@@ -11,10 +11,14 @@ import Footer from "../Footer/Footer";
 //Context
 import RefreshContext from "../../Context/RefreshContext";
 import MainContentContext from "../../Context/MainContentContext";
+import AddSongFieldTypeContext from "../../Context/AddSongFieldTypeContext";
+import AudioPlayerSourceContext from "../../Context/AudioPlayerSourceContext";
 
 const Main = (props) => {
   const [refresh, setRefresh] = useState(true);
   const [mainContent, setMainContent] = useState("");
+  const [audioPlayerSource, setAudioPlayerSource] = useState("");
+  const [addSongFieldType, setAddSongFieldType] = useState("searchSongField");
 
   const MainContentSwitch = () => {
     if (mainContent === "") {
@@ -31,8 +35,16 @@ const Main = (props) => {
       <RefreshContext.Provider value={{ refresh, setRefresh }}>
         <MainContentContext.Provider value={{ mainContent, setMainContent }}>
           <Header />
-          <MainContentSwitch />
-          <Footer />
+          <AddSongFieldTypeContext.Provider
+            value={{ addSongFieldType, setAddSongFieldType }}
+          >
+            <AudioPlayerSourceContext.Provider
+              value={{ audioPlayerSource, setAudioPlayerSource }}
+            >
+              <MainContentSwitch />
+            </AudioPlayerSourceContext.Provider>
+            <Footer />
+          </AddSongFieldTypeContext.Provider>
         </MainContentContext.Provider>
       </RefreshContext.Provider>
     </div>

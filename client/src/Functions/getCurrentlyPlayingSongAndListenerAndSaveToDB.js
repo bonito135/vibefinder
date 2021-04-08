@@ -6,8 +6,6 @@ const getCurrentlyPlayingSongAndListenerAndSaveToDB = async () => {
   const ListenerInfo = await getCurrentListener();
   const SongInfo = await getCurrentlyPlayingSong();
 
-  if (ListenerInfo.responseStatus === 401) window.location.replace("/login");
-
   if (ListenerInfo.responseStatus === 200) {
     return ListenerInfo;
   }

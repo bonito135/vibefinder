@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./The-last-saved-songs.css";
 
 //Components
 import AudioPlayer from "../../AudioPlayer/AudioPlayer";
+
+//Context
+import AudioPlayerSourceContext from "../../../Context/AudioPlayerSourceContext";
 
 //Functions
 import getInfoOfPreviousSongsAndListeners from "../../../Functions/getInfoOfPreviousSongsAndListeners";
@@ -12,30 +15,23 @@ const TheLastSavedSongs = () => {
     previousSongsAndListenersInfo,
     setPreviousSongsAndListenersInfo,
   ] = useState([]);
+  const { setAudioPlayerSource } = useContext(AudioPlayerSourceContext);
+
+  const checkForSongs = async () => {
+    const infoOfPreviousSongsAndListeners = await getInfoOfPreviousSongsAndListeners(
+      5
+    );
+
+    if (infoOfPreviousSongsAndListeners.responseStatus === 200) {
+      setPreviousSongsAndListenersInfo(
+        infoOfPreviousSongsAndListeners.responseInJSON
+      );
+    }
+  };
 
   useEffect(() => {
-    let isMounted = true;
-
-    if (isMounted) {
-      const checkForSongs = async () => {
-        const infoOfPreviousSongsAndListeners = await getInfoOfPreviousSongsAndListeners(
-          5
-        );
-
-        if (infoOfPreviousSongsAndListeners.responseStatus === 200) {
-          if (isMounted)
-            setPreviousSongsAndListenersInfo(
-              infoOfPreviousSongsAndListeners.responseInJSON
-            );
-        }
-      };
-      checkForSongs();
-    }
-
-    return () => {
-      isMounted = false;
-    };
-
+    checkForSongs();
+    setAudioPlayerSource("lastSongs");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

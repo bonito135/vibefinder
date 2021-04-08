@@ -181,6 +181,37 @@ router.get("/getInfoOfPreviousSongsAndListeners", async (req, res) => {
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+// spotify/functions/searchForASong
+router.post("/searchForASong", async (req, res) => {
+  const reqSongName = req.body.song;
+
+  const response = await fetch(
+    `https://api.spotify.com/v1/search?query=${reqSongName}&limit=20&type=track`,
+    {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + spotifyAccessToken.value,
+      },
+    }
+  );
+
+  const responseInJson = await response.json();
+
+  //console.log(responseInJson);
+  const responseToSend = ({
+    album,
+    artists,
+    name,
+    preview_url,
+  } = responseInJson);
+
+  if (response.status === 200) {
+    res.status(200).json(responseToSend);
+  }
+});
+
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 //Exporting routes
 module.exports = router;
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

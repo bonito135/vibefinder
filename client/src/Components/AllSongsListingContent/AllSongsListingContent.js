@@ -10,6 +10,7 @@ import getInfoOfPreviousSongsAndListeners from "../../Functions/getInfoOfPreviou
 
 //Context
 import RefreshContext from "../../Context/RefreshContext";
+import AudioPlayerSourceContext from "../../Context/AudioPlayerSourceContext";
 
 export default function AllSongsListingContent() {
   const [
@@ -18,6 +19,7 @@ export default function AllSongsListingContent() {
   ] = useState([]);
 
   const { refresh } = useContext(RefreshContext);
+  const { setAudioPlayerSource } = useContext(AudioPlayerSourceContext);
 
   useEffect(() => {
     let isMounted = true;
@@ -47,6 +49,8 @@ export default function AllSongsListingContent() {
     let isMounted = true;
 
     if (isMounted) {
+      setAudioPlayerSource("allSharedSongs");
+
       const loadSongs = async () => {
         const response = await getInfoOfPreviousSongsAndListeners();
         console.log(response);

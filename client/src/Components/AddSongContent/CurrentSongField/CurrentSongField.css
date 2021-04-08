@@ -1,4 +1,4 @@
-.addSongField {
+.currentSongField {
   display: -ms-grid;
   display: grid;
   place-self: center;
@@ -10,7 +10,7 @@
       grid-template-columns: 100%;
 }
 
-.addSongField .noSongText {
+.currentSongField .noSongText {
   -ms-grid-row: 2;
   -ms-grid-row-span: 1;
   grid-row: 2/3;
@@ -20,7 +20,7 @@
   font-size: 20px;
 }
 
-.addSongField .albumPic {
+.currentSongField .albumPic {
   place-self: center;
   -ms-grid-row: 1;
   -ms-grid-row-span: 1;
@@ -30,7 +30,7 @@
   border-radius: 10%;
 }
 
-.addSongField .songName {
+.currentSongField .songName {
   -ms-grid-row: 2;
   -ms-grid-row-span: 1;
   grid-row: 2/3;
@@ -46,7 +46,7 @@
   color: white;
 }
 
-.addSongField .albumName {
+.currentSongField .albumName {
   -ms-grid-row: 3;
   -ms-grid-row-span: 1;
   grid-row: 3/4;
@@ -60,7 +60,7 @@
   font-weight: 500;
 }
 
-.addSongField .addSongButton {
+.currentSongField .addSongButton {
   place-self: center;
   border: none;
   border-radius: 20px;
@@ -73,4 +73,18 @@
   font-size: 15px;
   font-weight: 600;
 }
-/*# sourceMappingURL=AddSongField.css.map */
+
+.currentSongField .searchSongButton {
+  place-self: center;
+  border: none;
+  border-radius: 20px;
+  outline: none;
+  width: 150px;
+  height: 50px;
+  background: transparent;
+  background-color: white;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+}
+/*# sourceMappingURL=CurrentSongField.css.map */

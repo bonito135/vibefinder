@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import "./AddSongField.css";
+import "./CurrentSongField.css";
 
 //Components
 import AudioPlayer from "../../AudioPlayer/AudioPlayer";
@@ -12,6 +12,8 @@ import saveSongAndListenerToDatabase from "../../../Functions/saveSongAndListene
 //Context
 import LoginContext from "../../../Context/LoginContext";
 import RefreshContext from "../../../Context/RefreshContext";
+import AddSongFieldTypeContext from "../../../Context/AddSongFieldTypeContext";
+import AudioPlayerSourceContext from "../../../Context/AudioPlayerSourceContext";
 
 export default function AddSongField() {
   const [songIsPlaying, setSongIsPlaying] = useState(false);
@@ -19,6 +21,8 @@ export default function AddSongField() {
 
   const { setIsLoggedIn } = useContext(LoginContext);
   const { refresh } = useContext(RefreshContext);
+  const { setAddSongFieldType } = useContext(AddSongFieldTypeContext);
+  const { setAudioPlayerSource } = useContext(AudioPlayerSourceContext);
 
   const loadSongs = async () => {
     const response = await getCurrentlyPlayingSong();
@@ -57,7 +61,9 @@ export default function AddSongField() {
     let isMounted = true;
 
     if (isMounted) {
+      setAddSongFieldType("currentSongField");
       loadSongs();
+      setAudioPlayerSource("currentSong");
     }
 
     return () => {
@@ -82,10 +88,10 @@ export default function AddSongField() {
   }, [refresh]);
 
   return (
-    <div className="addSongField">
+    <div className="currentSongField">
       {!songIsPlaying ? (
         <>
-          <p className="noSongText">No song is playing</p>
+          <h3 className="noSongText">No song is playing</h3>
         </>
       ) : (
         <>

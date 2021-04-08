@@ -6,7 +6,7 @@ import getCurrentlyPlayingSong from "../../Functions/getCurrentlyPlayingSong";
 
 //Context
 import RefreshContext from "../../Context/RefreshContext";
-import MainContentContext from "../../Context/MainContentContext";
+import AudioPlayerSourceContext from "../../Context/AudioPlayerSourceContext";
 
 //Imgs
 import playButton from "./playButton.png";
@@ -16,24 +16,27 @@ export default function AudioPlayer(props) {
   const [musicIsPlaying, setMusicIsPlaying] = useState(false);
   const [isPreviewURL, setIsPreviewURL] = useState(false);
 
-  const { mainContent } = useContext(MainContentContext);
+  const { audioPlayerSource } = useContext(AudioPlayerSourceContext);
   const { refresh } = useContext(RefreshContext);
   const audioRef = useRef(null);
 
   const playSong = async () => {
-    await audioRef.current.play();
-
-    setMusicIsPlaying(true);
+    if (audioRef.current !== null) {
+      await audioRef.current.play();
+      setMusicIsPlaying(true);
+    }
   };
 
-  const pauseSong = () => {
-    audioRef.current.pause();
+  const pauseSong = async () => {
+    if (audioRef.current !== null) {
+      await audioRef.current.pause();
+    }
 
     setMusicIsPlaying(false);
   };
 
   const getSong = async () => {
-    if (mainContent === "AddSongContent") {
+    if (audioPlayerSource === "currentSong") {
       const response = await getCurrentlyPlayingSong();
       console.log(response);
 
@@ -44,7 +47,7 @@ export default function AudioPlayer(props) {
       } else {
         setIsPreviewURL(false);
       }
-    } else if (mainContent !== "AddSongContent") {
+    } else if (audioPlayerSource !== "currentSong") {
       if (props.preview_url) {
         audioRef.current = new Audio(await props.preview_url);
         audioRef.current.volume = 0.2;

@@ -1,0 +1,23 @@
+.addSongFieldTypeSwitch {
+  height: 100%;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.addSongFieldTypeSwitch button {
+  width: 140px;
+  height: 40px;
+  border: none;
+  outline: none;
+  border-radius: 20px;
+  background-color: white;
+}
+/*# sourceMappingURL=AddSongFieldTypeSwitch.css.map */

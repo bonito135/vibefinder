@@ -2,7 +2,7 @@
   display: grid;
   width: 90%;
 
-  grid-template-rows: 60px auto;
+  grid-template-rows: 60px 60px auto;
 
   @media only screen and (min-width: 1000px) {
     grid-row: 2/3;
