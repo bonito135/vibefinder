@@ -2,20 +2,20 @@
   display: grid;
   width: 90%;
 
-  grid-template-rows: 60px 60px auto;
+  grid-template-rows: 60px 60px 40vh;
 
   @media only screen and (min-width: 1000px) {
     grid-row: 2/3;
     grid-column: 1/4;
-    min-height: 100%;
-    max-width: 40%;
-    transform: translateY(4.5vh);
+    height: auto;
+    width: 70%;
+    transform: translateY(1.5vh);
   }
 
   @media only screen and (max-width: 1000px) {
     grid-row: 2/3;
     grid-column: 1/2;
-    height: 90%;
+    height: auto;
   }
 
   place-self: center;

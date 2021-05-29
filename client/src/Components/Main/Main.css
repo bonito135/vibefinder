@@ -8,7 +8,7 @@
 @media only screen and (min-width: 1000px) {
   .main {
     width: 95%;
-    height: 90%;
+    min-height: 90vh;
     -ms-grid-rows: 80px 65vh auto;
         grid-template-rows: 80px 65vh auto;
     -ms-grid-columns: 45% auto 45%;

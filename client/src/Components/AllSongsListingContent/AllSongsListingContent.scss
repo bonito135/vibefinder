@@ -5,6 +5,7 @@
   border-radius: 20px;
   place-self: center;
   justify-items: center;
+  height: 65vh;
 
   grid-template-rows: 60px 90%;
   grid-template-columns: 100%;
@@ -12,14 +13,12 @@
   @media only screen and (min-width: 1000px) {
     grid-column: 1/4;
     width: 70%;
-    height: 68vh;
     transform: translateY(4.5vh);
   }
 
   @media only screen and (max-width: 1000px) {
     grid-column: 1/1;
     width: 80%;
-    height: 70vh;
   }
 
   .allSongsField {
@@ -52,7 +51,7 @@
       grid-template-columns: 100%;
       width: 90%;
       height: 200px;
-      margin: 12px 0;
+      margin: 20px 0;
       place-items: center;
 
       border-radius: 20px;

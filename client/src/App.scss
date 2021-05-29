@@ -1,7 +1,7 @@
 .App {
   @media only screen and (min-width: 1000px) {
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     display: grid;
     justify-items: center;
     align-items: center;
@@ -9,7 +9,7 @@
 
   @media only screen and (max-width: 1000px) {
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     display: grid;
     justify-items: center;
     align-items: center;

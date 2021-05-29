@@ -11,7 +11,7 @@ import LoginContext from "../../Context/LoginContext";
 import MainContentContext from "../../Context/MainContentContext";
 
 const Header = () => {
-  const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
+  const { isLoggedIn } = useContext(LoginContext);
   const { setMainContent } = useContext(MainContentContext);
 
   const [currentListenerInfo, setCurrentListenerInfo] = useState({});

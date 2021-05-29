@@ -8,6 +8,7 @@
   border-radius: 20px;
   place-self: center;
   justify-items: center;
+  height: 65vh;
   -ms-grid-rows: 60px 90%;
       grid-template-rows: 60px 90%;
   -ms-grid-columns: 100%;
@@ -20,7 +21,6 @@
     -ms-grid-column-span: 3;
     grid-column: 1/4;
     width: 70%;
-    height: 68vh;
     -webkit-transform: translateY(4.5vh);
             transform: translateY(4.5vh);
   }
@@ -31,7 +31,6 @@
     -ms-grid-column: 1;
     grid-column: 1/1;
     width: 80%;
-    height: 70vh;
   }
 }
 
@@ -70,7 +69,7 @@
       grid-template-columns: 100%;
   width: 90%;
   height: 200px;
-  margin: 12px 0;
+  margin: 20px 0;
   place-items: center;
   border-radius: 20px;
   -webkit-box-shadow: -3px -1px 7px #ffffff41, 3px 3px 5px rgba(0, 0, 0, 0.411);

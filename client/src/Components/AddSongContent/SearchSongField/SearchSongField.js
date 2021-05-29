@@ -3,21 +3,18 @@ import "./SearchSongField.css";
 
 //Components
 import AudioPlayer from "../../AudioPlayer/AudioPlayer";
+import SaveSongButton from "../SaveSongButton/SaveSongButton";
 
 //Context
-import AddSongFieldTypeContext from "../../../Context/AddSongFieldTypeContext";
 import AudioPlayerSourceContext from "../../../Context/AudioPlayerSourceContext";
 
 //Functions
 import searchForASong from "../../../Functions/searchForASong";
-import getCurrentListener from "../../../Functions/getCurrentListener";
-import saveSongAndListenerToDatabase from "../../../Functions/saveSongAndListenerToDatabase";
 
-export default function SearchSongField() {
+export default function SearchSongField(props) {
   const [hasFoundSongs, setHasFoundSongs] = useState(false);
   const [songsList, setSongsList] = useState([]);
   const [searchSongInput, setSearchSongInput] = useState("");
-  const { setAddSongFieldType } = useContext(AddSongFieldTypeContext);
   const { setAudioPlayerSource } = useContext(AudioPlayerSourceContext);
 
   const searchSong = async () => {
@@ -40,32 +37,12 @@ export default function SearchSongField() {
     setSearchSongInput(e.target.value);
   };
 
-  const saveSong = async (e) => {
-    const currentListener = await getCurrentListener();
-    console.log(currentListener);
-
-    const sort_by_date = new Date().getTime();
-
-    const songInfo = songsList.find((song) => song.id === e.target.id);
-
-    const saveSongresponse = await saveSongAndListenerToDatabase(
-      songInfo.name,
-      songInfo.artists,
-      songInfo.album,
-      songInfo.preview_url,
-      currentListener.display_name,
-      currentListener.country,
-      currentListener.images,
-      sort_by_date
-    );
-    console.log(saveSongresponse);
-  };
-
   useEffect(() => {
-    setAddSongFieldType("searchSongField");
+    //console.log(props.currentListenerInfo);
+
     setAudioPlayerSource("searchSong");
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [props]);
 
   return (
     <div className="searchSongField">
@@ -78,14 +55,26 @@ export default function SearchSongField() {
       {hasFoundSongs ? (
         <div className="songsList">
           {songsList?.map((song) => (
-            <div className="songTile">
-              <img alt="albumPic" src={song?.album?.images[0]?.url}></img>
+            <div className="songTile" key={song?.id}>
+              <img
+                className="albumPic"
+                alt="albumPic"
+                src={song?.album?.images[0]?.url}
+              ></img>
               <p>{song?.name}</p>
 
               <AudioPlayer preview_url={song?.preview_url} />
-              <button id={song?.id} onClick={saveSong} className="shareButton">
-                Share
-              </button>
+
+              <SaveSongButton
+                id={song?.id}
+                songInfo={{
+                  name: song.name,
+                  artists: song.artists,
+                  album: song.album,
+                  preview_url: song.preview_url,
+                }}
+                currentListenerInfo={props.currentListenerInfo}
+              />
             </div>
           ))}
         </div>

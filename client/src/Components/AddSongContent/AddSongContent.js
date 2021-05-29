@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import "./AddSongContent.css";
 
 //Components
@@ -9,50 +9,44 @@ import SearchSongField from "./SearchSongField/SearchSongField";
 import CurrentSongField from "./CurrentSongField/CurrentSongField";
 
 //Context
-import LoginContext from "../../Context/LoginContext";
 import AddSongFieldTypeContext from "../../Context/AddSongFieldTypeContext";
 
-//Functions
-import getCurrentListener from "../../Functions/getCurrentListener";
-
-export default function AddSongContent() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+export default function AddSongContent(props) {
   const { addSongFieldType } = useContext(AddSongFieldTypeContext);
 
-  useEffect(() => {
-    const loginUser = async () => {
-      const userData = await getCurrentListener();
-
-      if (userData.responseStatus === 200) {
-        setIsLoggedIn(true);
-      } else {
-        setIsLoggedIn(false);
-      }
-    };
-
-    loginUser();
-  }, []);
-
   const AddSongField = () => {
-    if (!isLoggedIn) {
+    if (!props.isLoggedIn) {
       return <LoginScreen />;
     }
 
     if (addSongFieldType === "searchSongField") {
-      return <SearchSongField />;
+      return (
+        <SearchSongField
+          isLoggedIn={props.isLoggedIn}
+          currentListenerInfo={props.currentListenerInfo}
+        />
+      );
     } else if (addSongFieldType === "currentSongField") {
-      return <CurrentSongField />;
+      return (
+        <CurrentSongField
+          isLoggedIn={props.isLoggedIn}
+          currentListenerInfo={props.currentListenerInfo}
+        />
+      );
     }
   };
 
+  useEffect(() => {
+    //console.log(props.isLoggedIn);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props]);
+
   return (
     <div className="addSongContent">
-      <LoginContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
-        <ArrowField />
-        <AddSongFieldTypeSwitch />
+      <ArrowField />
+      <AddSongFieldTypeSwitch />
 
-        <AddSongField />
-      </LoginContext.Provider>
+      <AddSongField />
     </div>
   );
 }
