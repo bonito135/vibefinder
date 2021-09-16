@@ -62,12 +62,8 @@ router.get("/getCurrentListener", async (req, res) => {
     },
   });
 
-  const {
-    display_name,
-    country,
-    images,
-    external_urls,
-  } = await response.json();
+  const { display_name, country, images, external_urls } =
+    await response.json();
 
   if (response.status === 200) {
     res.status(200).send({ display_name, country, images, external_urls });
@@ -134,7 +130,8 @@ router.get("/getInfoOfPreviousSongsAndListeners", async (req, res) => {
           .find({})
           .limit(limitOfFetchedSongs)
           .sort({ sort_by_date: -1 })
-          .toArray();
+          .toArray()
+          .catch((err) => console.log(`error is ${err}`));
 
         if (err) {
           console.error(err);
@@ -199,12 +196,8 @@ router.post("/searchForASong", async (req, res) => {
   const responseInJson = await response.json();
 
   //console.log(responseInJson);
-  const responseToSend = ({
-    album,
-    artists,
-    name,
-    preview_url,
-  } = responseInJson);
+  const responseToSend = ({ album, artists, name, preview_url } =
+    responseInJson);
 
   if (response.status === 200) {
     res.status(200).json(responseToSend);

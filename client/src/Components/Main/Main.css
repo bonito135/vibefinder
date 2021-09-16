@@ -1,6 +1,7 @@
 .main {
   display: -ms-grid;
   display: grid;
+  height: 95%;
   border: solid white 10px;
   border-radius: 30px;
 }
@@ -8,20 +9,18 @@
 @media only screen and (min-width: 1000px) {
   .main {
     width: 95%;
-    min-height: 90vh;
-    -ms-grid-rows: 80px 65vh auto;
-        grid-template-rows: 80px 65vh auto;
-    -ms-grid-columns: 45% auto 45%;
-        grid-template-columns: 45% auto 45%;
+    -ms-grid-rows: 80px 65vh 1fr;
+        grid-template-rows: 80px 65vh 1fr;
+    -ms-grid-columns: 45% 1fr 45%;
+        grid-template-columns: 45% 1fr 45%;
   }
 }
 
 @media only screen and (max-width: 1000px) {
   .main {
     width: 95%;
-    height: 95%;
-    -ms-grid-rows: 80px auto 8vh;
-        grid-template-rows: 80px auto 8vh;
+    -ms-grid-rows: 80px 8fr 1fr;
+        grid-template-rows: 80px 8fr 1fr;
     -ms-grid-columns: 100%;
         grid-template-columns: 100%;
   }

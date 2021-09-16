@@ -8,7 +8,7 @@
   border-radius: 20px;
   place-self: center;
   justify-items: center;
-  height: 65vh;
+  height: calc(max(400px, 65vh));
   -ms-grid-rows: 60px 90%;
       grid-template-rows: 60px 90%;
   -ms-grid-columns: 100%;
@@ -30,26 +30,13 @@
   .allSongsListingContent {
     -ms-grid-column: 1;
     grid-column: 1/1;
-    width: 80%;
+    width: 90%;
   }
 }
 
 .allSongsListingContent .allSongsField {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  width: 90%;
+  width: 95%;
   height: 95%;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   overflow-y: scroll;
   border-radius: 20px;
   -webkit-box-shadow: inset -3px -3px 7px #ffffff5d, inset 3px 3px 5px rgba(0, 0, 0, 0.432);
@@ -60,31 +47,40 @@
   display: none;
 }
 
-.allSongsListingContent .allSongsField .allSongsTile {
+.allSongsListingContent .allSongsField .allSongsTileContainer {
   display: -ms-grid;
   display: grid;
-  -ms-grid-rows: 25% 30% auto;
-      grid-template-rows: 25% 30% auto;
+  width: 100%;
+  height: 200px;
+  place-items: center;
+  margin-top: 20px;
+}
+
+.allSongsListingContent .allSongsField .allSongsTileContainer:first-child {
+  margin-top: 35px;
+}
+
+.allSongsListingContent .allSongsField .allSongsTileContainer:last-child {
+  margin-bottom: 35px;
+}
+
+.allSongsListingContent .allSongsField .allSongsTileContainer .allSongsTile {
+  display: -ms-grid;
+  display: grid;
+  background-color: rgba(255, 255, 255, 0.089);
+  -ms-grid-rows: 1.3fr 1.3fr 2fr;
+      grid-template-rows: 1.3fr 1.3fr 2fr;
   -ms-grid-columns: 100%;
       grid-template-columns: 100%;
   width: 90%;
   height: 200px;
-  margin: 20px 0;
   place-items: center;
   border-radius: 20px;
   -webkit-box-shadow: -3px -1px 7px #ffffff41, 3px 3px 5px rgba(0, 0, 0, 0.411);
           box-shadow: -3px -1px 7px #ffffff41, 3px 3px 5px rgba(0, 0, 0, 0.411);
 }
 
-.allSongsListingContent .allSongsField .allSongsTile:first-child {
-  margin-top: 35px;
-}
-
-.allSongsListingContent .allSongsField .allSongsTile:last-child {
-  margin-bottom: 35px;
-}
-
-.allSongsListingContent .allSongsField .allSongsTile .allSongsTileUserPart {
+.allSongsListingContent .allSongsField .allSongsTileContainer .allSongsTile .allSongsTileUserPart {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -106,45 +102,45 @@
   border-bottom: solid 1px rgba(255, 255, 255, 0.3);
 }
 
-.allSongsListingContent .allSongsField .allSongsTile .allSongsTileUserPart .userImg {
+.allSongsListingContent .allSongsField .allSongsTileContainer .allSongsTile .allSongsTileUserPart .userImg {
   width: 30px;
   height: 30px;
   border-radius: 50%;
 }
 
-.allSongsListingContent .allSongsField .allSongsTile .allSongsTileUserPart .userName {
+.allSongsListingContent .allSongsField .allSongsTileContainer .allSongsTile .allSongsTileUserPart .userName {
   color: whitesmoke;
 }
 
 @media only screen and (min-width: 1000px) {
-  .allSongsListingContent .allSongsField .allSongsTile .allSongsTileUserPart .userName {
+  .allSongsListingContent .allSongsField .allSongsTileContainer .allSongsTile .allSongsTileUserPart .userName {
     font-size: 15px;
   }
 }
 
 @media only screen and (max-width: 1000px) {
-  .allSongsListingContent .allSongsField .allSongsTile .allSongsTileUserPart .userName {
+  .allSongsListingContent .allSongsField .allSongsTileContainer .allSongsTile .allSongsTileUserPart .userName {
     font-size: 11px;
   }
 }
 
-.allSongsListingContent .allSongsField .allSongsTile .allSongsTileUserPart .userCountry {
+.allSongsListingContent .allSongsField .allSongsTileContainer .allSongsTile .allSongsTileUserPart .userCountry {
   color: whitesmoke;
 }
 
 @media only screen and (min-width: 1000px) {
-  .allSongsListingContent .allSongsField .allSongsTile .allSongsTileUserPart .userCountry {
+  .allSongsListingContent .allSongsField .allSongsTileContainer .allSongsTile .allSongsTileUserPart .userCountry {
     font-size: 15px;
   }
 }
 
 @media only screen and (max-width: 1000px) {
-  .allSongsListingContent .allSongsField .allSongsTile .allSongsTileUserPart .userCountry {
+  .allSongsListingContent .allSongsField .allSongsTileContainer .allSongsTile .allSongsTileUserPart .userCountry {
     font-size: 11px;
   }
 }
 
-.allSongsListingContent .allSongsField .allSongsTile .allSongsTileArtistsPart {
+.allSongsListingContent .allSongsField .allSongsTileContainer .allSongsTile .allSongsTileArtistsPart {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -164,25 +160,25 @@
           align-items: center;
 }
 
-.allSongsListingContent .allSongsField .allSongsTile .allSongsTileArtistsPart .artistName {
+.allSongsListingContent .allSongsField .allSongsTileContainer .allSongsTile .allSongsTileArtistsPart .artistName {
   width: auto;
   color: white;
   text-decoration: none;
 }
 
 @media only screen and (min-width: 1000px) {
-  .allSongsListingContent .allSongsField .allSongsTile .allSongsTileArtistsPart .artistName {
+  .allSongsListingContent .allSongsField .allSongsTileContainer .allSongsTile .allSongsTileArtistsPart .artistName {
     font-size: 18px;
   }
 }
 
 @media only screen and (max-width: 1000px) {
-  .allSongsListingContent .allSongsField .allSongsTile .allSongsTileArtistsPart .artistName {
+  .allSongsListingContent .allSongsField .allSongsTileContainer .allSongsTile .allSongsTileArtistsPart .artistName {
     font-size: 11px;
   }
 }
 
-.allSongsListingContent .allSongsField .allSongsTile .allSongsTileSongPart {
+.allSongsListingContent .allSongsField .allSongsTileContainer .allSongsTile .allSongsTileSongPart {
   display: -ms-grid;
   display: grid;
   -ms-grid-row: 3;
@@ -198,20 +194,20 @@
 }
 
 @media only screen and (min-width: 1000px) {
-  .allSongsListingContent .allSongsField .allSongsTile .allSongsTileSongPart {
+  .allSongsListingContent .allSongsField .allSongsTileContainer .allSongsTile .allSongsTileSongPart {
     -ms-grid-columns: 100px auto 100px;
         grid-template-columns: 100px auto 100px;
   }
 }
 
 @media only screen and (max-width: 1000px) {
-  .allSongsListingContent .allSongsField .allSongsTile .allSongsTileSongPart {
+  .allSongsListingContent .allSongsField .allSongsTileContainer .allSongsTile .allSongsTileSongPart {
     -ms-grid-columns: 60px auto 60px;
         grid-template-columns: 60px auto 60px;
   }
 }
 
-.allSongsListingContent .allSongsField .allSongsTile .allSongsTileSongPart .albumAnchor {
+.allSongsListingContent .allSongsField .allSongsTileContainer .allSongsTile .allSongsTileSongPart .albumAnchor {
   display: -ms-grid;
   display: grid;
   width: 100%;
@@ -219,25 +215,25 @@
   place-items: center;
 }
 
-.allSongsListingContent .allSongsField .allSongsTile .allSongsTileSongPart .albumAnchor .albumImg {
+.allSongsListingContent .allSongsField .allSongsTileContainer .allSongsTile .allSongsTileSongPart .albumAnchor .albumImg {
   border-radius: 20%;
 }
 
 @media only screen and (min-width: 1000px) {
-  .allSongsListingContent .allSongsField .allSongsTile .allSongsTileSongPart .albumAnchor .albumImg {
+  .allSongsListingContent .allSongsField .allSongsTileContainer .allSongsTile .allSongsTileSongPart .albumAnchor .albumImg {
     height: 50px;
     width: 50px;
   }
 }
 
 @media only screen and (max-width: 1000px) {
-  .allSongsListingContent .allSongsField .allSongsTile .allSongsTileSongPart .albumAnchor .albumImg {
+  .allSongsListingContent .allSongsField .allSongsTileContainer .allSongsTile .allSongsTileSongPart .albumAnchor .albumImg {
     height: 40px;
     width: 40px;
   }
 }
 
-.allSongsListingContent .allSongsField .allSongsTile .allSongsTileSongPart .songName {
+.allSongsListingContent .allSongsField .allSongsTileContainer .allSongsTile .allSongsTileSongPart .songName {
   color: white;
   font-weight: 600;
   letter-spacing: 1px;
@@ -245,13 +241,13 @@
 }
 
 @media only screen and (min-width: 1000px) {
-  .allSongsListingContent .allSongsField .allSongsTile .allSongsTileSongPart .songName {
+  .allSongsListingContent .allSongsField .allSongsTileContainer .allSongsTile .allSongsTileSongPart .songName {
     font-size: 18px;
   }
 }
 
 @media only screen and (max-width: 1000px) {
-  .allSongsListingContent .allSongsField .allSongsTile .allSongsTileSongPart .songName {
+  .allSongsListingContent .allSongsField .allSongsTileContainer .allSongsTile .allSongsTileSongPart .songName {
     font-size: 10px;
   }
 }

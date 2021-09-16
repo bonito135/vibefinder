@@ -1,17 +1,17 @@
 .main {
   display: grid;
+  height: 95%;
 
   @media only screen and (min-width: 1000px) {
     width: 95%;
-    min-height: 90vh;
-    grid-template-rows: 80px 65vh auto;
-    grid-template-columns: 45% auto 45%;
+    //calc function works like a workaround for ´´Internal Error: Incompatible units: 'px' and 'vh',,
+    grid-template-rows: 80px 65vh 1fr;
+    grid-template-columns: 45% 1fr 45%;
   }
 
   @media only screen and (max-width: 1000px) {
     width: 95%;
-    height: 95%;
-    grid-template-rows: 80px auto 8vh;
+    grid-template-rows: 80px 8fr 1fr;
     grid-template-columns: 100%;
   }
 

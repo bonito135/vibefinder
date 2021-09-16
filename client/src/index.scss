@@ -21,8 +21,8 @@
 
 html,
 body {
-  width: 100vw;
-  min-height: 100vh;
+  width: calc(max(320px, 100vw));
+  height: calc(max(700px, 100vh));
 }
 
 body {
@@ -34,4 +34,9 @@ body {
     background-image: url("./background-vertical.jpg");
     background-size: cover;
   }
+}
+
+#root {
+  height: 100%;
+  width: 100%;
 }

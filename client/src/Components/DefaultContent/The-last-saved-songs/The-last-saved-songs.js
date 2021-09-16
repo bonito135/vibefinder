@@ -11,16 +11,13 @@ import AudioPlayerSourceContext from "../../../Context/AudioPlayerSourceContext"
 import getInfoOfPreviousSongsAndListeners from "../../../Functions/getInfoOfPreviousSongsAndListeners";
 
 const TheLastSavedSongs = () => {
-  const [
-    previousSongsAndListenersInfo,
-    setPreviousSongsAndListenersInfo,
-  ] = useState([]);
+  const [previousSongsAndListenersInfo, setPreviousSongsAndListenersInfo] =
+    useState([]);
   const { setAudioPlayerSource } = useContext(AudioPlayerSourceContext);
 
   const checkForSongs = async () => {
-    const infoOfPreviousSongsAndListeners = await getInfoOfPreviousSongsAndListeners(
-      5
-    );
+    const infoOfPreviousSongsAndListeners =
+      await getInfoOfPreviousSongsAndListeners(4);
 
     if (infoOfPreviousSongsAndListeners.responseStatus === 200) {
       setPreviousSongsAndListenersInfo(
