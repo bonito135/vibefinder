@@ -1,5 +1,5 @@
 const getCurrentListener = async () => {
-  let response = "";
+  let response = {};
 
   if (process.env.NODE_ENV === "development") {
     response = await fetch(
@@ -19,7 +19,6 @@ const getCurrentListener = async () => {
     };
   } else if (response.status === 200) {
     const responseInJson = await response.json();
-    //console.log("Current listener:", responseInJson);
     const { country, display_name, external_urls, images } = responseInJson;
 
     return {

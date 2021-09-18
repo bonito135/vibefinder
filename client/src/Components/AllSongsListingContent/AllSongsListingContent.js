@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import "./AllSongsListingContent.css";
 
 //Components
@@ -16,55 +16,49 @@ export default function AllSongsListingContent() {
   const [previousSongsAndListenersInfo, setPreviousSongsAndListenersInfo] =
     useState([]);
 
+  const _isMounted = useRef(true);
+
   const { refresh } = useContext(RefreshContext);
   const { setAudioPlayerSource } = useContext(AudioPlayerSourceContext);
 
   useEffect(() => {
-    let isMounted = true;
+    if (_isMounted.current) {
+      setAudioPlayerSource("allSharedSongs");
 
-    if (isMounted) {
       const loadSongs = async () => {
         const response = await getInfoOfPreviousSongsAndListeners();
-        console.log(response);
 
-        if (response.responseStatus === 204) {
-          console.log(response);
-        } else if (response.responseStatus === 200) {
-          if (isMounted)
-            setPreviousSongsAndListenersInfo(response.responseInJSON);
+        if (response.responseStatus === 200 && _isMounted.current) {
+          setPreviousSongsAndListenersInfo(response.responseInJSON);
         }
       };
+
       loadSongs();
     }
 
     return () => {
-      isMounted = false;
+      _isMounted.current = false;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refresh]);
 
   useEffect(() => {
-    let isMounted = true;
-
-    if (isMounted) {
+    if (_isMounted.current) {
       setAudioPlayerSource("allSharedSongs");
 
       const loadSongs = async () => {
         const response = await getInfoOfPreviousSongsAndListeners();
-        console.log(response);
 
-        if (response.responseStatus === 204) {
-          console.log(response);
-        } else if (response.responseStatus === 200) {
-          if (isMounted)
-            setPreviousSongsAndListenersInfo(response.responseInJSON);
+        if (response.responseStatus === 200 && _isMounted.current) {
+          setPreviousSongsAndListenersInfo(response.responseInJSON);
         }
       };
+
       loadSongs();
     }
 
     return () => {
-      isMounted = false;
+      _isMounted.current = false;
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

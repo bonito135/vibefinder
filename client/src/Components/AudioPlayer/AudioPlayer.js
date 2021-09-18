@@ -18,17 +18,19 @@ export default function AudioPlayer(props) {
 
   const { audioPlayerSource } = useContext(AudioPlayerSourceContext);
   const { refresh } = useContext(RefreshContext);
+
   const audioRef = useRef(null);
+  const _isMounted = useRef(true);
 
   const playSong = async () => {
-    if (audioRef.current !== null) {
+    if (audioRef.current !== null && _isMounted.current) {
       await audioRef.current.play();
       setMusicIsPlaying(true);
     }
   };
 
   const pauseSong = async () => {
-    if (audioRef.current !== null) {
+    if (audioRef.current !== null && _isMounted.current) {
       await audioRef.current.pause();
     }
 
@@ -36,18 +38,21 @@ export default function AudioPlayer(props) {
   };
 
   const getSong = async () => {
-    if (audioPlayerSource === "currentSong") {
+    if (audioPlayerSource === "currentSong" && _isMounted.current) {
       const response = await getCurrentlyPlayingSong();
-      console.log(response);
 
-      if (response.responseStatus === 200 && response.preview_url) {
+      if (
+        response.responseStatus === 200 &&
+        response.preview_url &&
+        _isMounted.current
+      ) {
         audioRef.current = new Audio(await response.preview_url);
         audioRef.current.volume = 0.2;
         setIsPreviewURL(true);
       } else {
         setIsPreviewURL(false);
       }
-    } else if (audioPlayerSource !== "currentSong") {
+    } else if (audioPlayerSource !== "currentSong" && _isMounted.current) {
       if (props.preview_url) {
         audioRef.current = new Audio(await props.preview_url);
         audioRef.current.volume = 0.2;
@@ -61,6 +66,11 @@ export default function AudioPlayer(props) {
   useEffect(() => {
     getSong();
 
+    return () => {
+      _isMounted.current = false;
+      pauseSong();
+    };
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refresh]);
 
@@ -68,8 +78,8 @@ export default function AudioPlayer(props) {
     getSong();
 
     return () => {
+      _isMounted.current = false;
       pauseSong();
-      console.log("Paused");
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

@@ -1,5 +1,5 @@
 const getInfoOfPreviousSongsAndListeners = async (limit) => {
-  let response = "";
+  let response = {};
 
   if (limit) {
     if (process.env.NODE_ENV === "development") {
@@ -25,7 +25,6 @@ const getInfoOfPreviousSongsAndListeners = async (limit) => {
 
   if (response.status === 200) {
     const responseInJSON = await response.json();
-    console.log(responseInJSON);
 
     return {
       responseStatus: 200,

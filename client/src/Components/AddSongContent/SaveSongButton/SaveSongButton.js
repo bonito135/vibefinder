@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./SaveSongButton.css";
 
 // Gifs
@@ -31,17 +31,11 @@ export default function SaveSongButton(props) {
       sort_by_date
     );
 
-    console.log(saveSongResponse);
-
     if (saveSongResponse.responseStatus === 200) {
       setIsLoading(false);
       setIsLoaded(true);
     }
   };
-
-  useEffect(() => {
-    console.log(props);
-  }, [props]);
 
   const ButtonAndGifSwitch = () => {
     if (isLoading) {

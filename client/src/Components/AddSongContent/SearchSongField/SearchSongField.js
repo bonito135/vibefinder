@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import "./SearchSongField.css";
 
 //Components
@@ -17,18 +17,18 @@ export default function SearchSongField(props) {
   const [searchSongInput, setSearchSongInput] = useState("");
   const { setAudioPlayerSource } = useContext(AudioPlayerSourceContext);
 
+  const _isMounted = useRef(true);
+
   const searchSong = async () => {
     const response = await searchForASong(searchSongInput);
 
-    console.log(response);
-
-    if (response.responseStatus === 200) {
+    if (response.responseStatus === 200 && _isMounted.current) {
       setSongsList(response?.responseToReturn);
 
       setHasFoundSongs(true);
     }
 
-    if (response.responseStatus !== 200) {
+    if (response.responseStatus !== 200 && _isMounted.current) {
       setHasFoundSongs(false);
     }
   };
@@ -38,9 +38,13 @@ export default function SearchSongField(props) {
   };
 
   useEffect(() => {
-    //console.log(props.currentListenerInfo);
+    if (_isMounted.current) {
+      setAudioPlayerSource("searchSong");
+    }
 
-    setAudioPlayerSource("searchSong");
+    return () => {
+      _isMounted.current = false;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props]);
 

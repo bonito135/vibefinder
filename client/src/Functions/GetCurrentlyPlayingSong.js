@@ -1,5 +1,5 @@
 const getCurrentlyPlayingSong = async () => {
-  let response = "";
+  let response = {};
 
   if (process.env.NODE_ENV === "development") {
     response = await fetch(
@@ -10,14 +10,10 @@ const getCurrentlyPlayingSong = async () => {
   }
 
   if (response.status === 401) {
-    //console.log("Current song info: Unauthorized");
-
     return {
       responseStatus: 401,
     };
   } else if (response.status === 204) {
-    //console.log("Current song info: Nothing");
-
     return {
       responseStatus: 204,
     };
@@ -25,8 +21,6 @@ const getCurrentlyPlayingSong = async () => {
     const responseInJson = await response.json();
 
     const { name, artists, album, preview_url } = await responseInJson;
-
-    //console.log("Current song info:", { name, artists, album, preview_url });
 
     return {
       name,

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "./CurrentSongField.css";
 
 //Components
@@ -16,47 +16,41 @@ export default function AddSongField(props) {
   const [songIsPlaying, setSongIsPlaying] = useState(false);
   const [songInfo, setSongInfo] = useState({});
 
+  const _isMounted = useRef(true);
+
   const { refresh } = useContext(RefreshContext);
   const { setAudioPlayerSource } = useContext(AudioPlayerSourceContext);
 
   const loadSongs = async () => {
     const response = await getCurrentlyPlayingSong();
-    console.log(response);
 
-    if (response.responseStatus === 401) {
+    if (response.responseStatus === 401 && _isMounted.current) {
       console.log("Is not logged in!");
-    } else if (response.responseStatus === 204) {
+    } else if (response.responseStatus === 204 && _isMounted.current) {
       setSongIsPlaying(false);
-    } else if (response.responseStatus === 200) {
+    } else if (response.responseStatus === 200 && _isMounted.current) {
       setSongInfo(response);
       setSongIsPlaying(true);
     }
   };
 
   useEffect(() => {
-    let isMounted = true;
-
-    if (isMounted) {
-      loadSongs();
-      setAudioPlayerSource("currentSong");
-    }
+    loadSongs();
+    setAudioPlayerSource("currentSong");
 
     return () => {
-      isMounted = false;
+      _isMounted.current = false;
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    let isMounted = true;
-
-    if (isMounted) {
-      loadSongs();
-    }
+    loadSongs();
+    setAudioPlayerSource("currentSong");
 
     return () => {
-      isMounted = false;
+      _isMounted.current = false;
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

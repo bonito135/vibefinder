@@ -1,13 +1,13 @@
 .addSongContent {
   display: grid;
   width: 90%;
-
-  grid-template-rows: 60px 60px 40vh;
+  height: 90%;
+  grid-template-rows: 50px 50px 53vh;
 
   @media only screen and (min-width: 1000px) {
     grid-row: 2/3;
     grid-column: 1/4;
-    height: auto;
+
     width: 70%;
     transform: translateY(1.5vh);
   }
@@ -15,7 +15,6 @@
   @media only screen and (max-width: 1000px) {
     grid-row: 2/3;
     grid-column: 1/2;
-    height: auto;
   }
 
   place-self: center;

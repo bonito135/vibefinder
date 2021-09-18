@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "./The-last-saved-songs.css";
 
 //Components
@@ -13,13 +13,19 @@ import getInfoOfPreviousSongsAndListeners from "../../../Functions/getInfoOfPrev
 const TheLastSavedSongs = () => {
   const [previousSongsAndListenersInfo, setPreviousSongsAndListenersInfo] =
     useState([]);
+
+  const _isMounted = useRef(true);
+
   const { setAudioPlayerSource } = useContext(AudioPlayerSourceContext);
 
   const checkForSongs = async () => {
     const infoOfPreviousSongsAndListeners =
       await getInfoOfPreviousSongsAndListeners(4);
 
-    if (infoOfPreviousSongsAndListeners.responseStatus === 200) {
+    if (
+      infoOfPreviousSongsAndListeners.responseStatus === 200 &&
+      _isMounted.current
+    ) {
       setPreviousSongsAndListenersInfo(
         infoOfPreviousSongsAndListeners.responseInJSON
       );
@@ -27,8 +33,14 @@ const TheLastSavedSongs = () => {
   };
 
   useEffect(() => {
-    checkForSongs();
-    setAudioPlayerSource("lastSongs");
+    if (_isMounted.current) {
+      checkForSongs();
+      setAudioPlayerSource("lastSongs");
+    }
+
+    return () => {
+      _isMounted.current = false;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

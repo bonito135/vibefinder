@@ -1,5 +1,5 @@
 const searchForASong = async (song) => {
-  let response = "";
+  let response = {};
 
   const params = { song };
 

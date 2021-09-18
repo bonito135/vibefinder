@@ -8,7 +8,7 @@ const saveSongAndListenerToDatabase = async (
   imageURLOfListener,
   sort_by_date
 ) => {
-  let response = "";
+  let response = {};
 
   const params = {
     song,
@@ -45,8 +45,6 @@ const saveSongAndListenerToDatabase = async (
 
   if (response.status === 200) {
     const responseInJSON = await response.json();
-
-    console.log(responseInJSON);
 
     return {
       responseStatus: 200,
